@@ -1,0 +1,24 @@
+name: portable-release-actions-workflow
+on:
+  push:
+
+permissions:
+    contents: write
+
+jobs:
+  build:
+    name: Create Release
+    runs-on: windows-latest
+    env:
+      targetZip: autodesk-fusion-portable-${{ github.ref_name }}.zip
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: jafin/gha-search-replace@0.2-alpha
+        with:
+          include: 'FusionLauncher.exe.ini'
+          search: '{"re":"__REGEXP /^cmd\s+=.*$/gm"}'
+          replace: 'cmd = ""Fusion360.exe""'
+
+      - shell: bash
+        run: cat FusionLauncher.exe.ini
