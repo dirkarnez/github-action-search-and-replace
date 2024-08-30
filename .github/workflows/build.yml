@@ -15,7 +15,7 @@ jobs:
       - name: Find and Replace
         uses: thiagodnf/string-replacer@v1.0.2
         with:
-          find: '/^cmd\s+=.*$/gm'
+          find: '^cmd\s+=.*$'
           replace: 'cmd = ""Fusion360.exe""'
           include: 'FusionLauncher.exe.ini'
 
