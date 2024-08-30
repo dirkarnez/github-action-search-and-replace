@@ -12,11 +12,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: nguyenvanuyn96/str-find-and-replace-action@master
+      - uses: jacobtomlinson/gha-find-replace@v3
         with:
           find: '^cmd\\s+=\\s+.*'
           replace: 'cmd = ""Fusion360.exe""'
           include: 'FusionLauncher.exe.ini'
-
-      - shell: bash
-        run: cat FusionLauncher.exe.ini
+          regex: true
+          
+      - shell: cmd
+        run: type FusionLauncher.exe.ini
