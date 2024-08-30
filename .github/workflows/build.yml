@@ -12,10 +12,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Find and Replace
-        uses: thiagodnf/string-replacer@v1.0.2
+      - uses: nguyenvanuyn96/str-find-and-replace-action@master
         with:
-          find: '^cmd\s+=.*$'
+          find: '^cmd\\s+=\\s+.*'
           replace: 'cmd = ""Fusion360.exe""'
           include: 'FusionLauncher.exe.ini'
 
