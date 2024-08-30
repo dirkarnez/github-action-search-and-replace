@@ -9,16 +9,15 @@ jobs:
   build:
     name: Create Release
     runs-on: windows-latest
-    env:
-      targetZip: autodesk-fusion-portable-${{ github.ref_name }}.zip
     steps:
       - uses: actions/checkout@v4
 
-      - uses: jafin/gha-search-replace@0.2-alpha
+      - name: Find and Replace
+        uses: thiagodnf/string-replacer@v1.0.2
         with:
-          include: 'FusionLauncher.exe.ini'
-          search: '{"re":"__REGEXP /^cmd\s+=.*$/gm"}'
+          find: '/^cmd\s+=.*$/gm'
           replace: 'cmd = ""Fusion360.exe""'
+          include: 'FusionLauncher.exe.ini'
 
       - shell: bash
         run: cat FusionLauncher.exe.ini
