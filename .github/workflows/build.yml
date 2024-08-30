@@ -12,13 +12,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       
-      - name: Modify version number
-        uses: mingjun97/file-regex-replace@v1
-        with:
-          regex: '^cmd\\s+=\\s+.*'
-          replacement: 'cmd = ""Fusion360.exe""'
-          flags: "g"                  # Optional, defaults to "g"
-          include: 'FusionLauncher.exe.ini'    # Optional, defaults to ".*"
-          
       - shell: cmd
-        run: type FusionLauncher.exe.ini
+        run: |
+          curl https://github.com/dirkarnez/regex-file-replace/releases/download/v1.0.0/regex-file-replace-v1.0.0-windows-latest.zip -L -O &&^
+          7z x regex-file-replace-v1.0.0-windows-latest.zip &&^
+          .\regex-file-replace.exe --regex="^cmd = .*" --replacement="cmd = \"\"Fusion360.exe\"\"" --filepath=FusionLauncher.exe.ini &&^
+          type FusionLauncher.exe.ini
