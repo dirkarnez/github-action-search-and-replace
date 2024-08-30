@@ -11,13 +11,14 @@ jobs:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v4
-
-      - uses: jacobtomlinson/gha-find-replace@v3
+      
+      - name: Modify version number
+        uses: mingjun97/file-regex-replace@v1
         with:
-          find: '^cmd\\s+=\\s+.*'
-          replace: 'cmd = ""Fusion360.exe""'
-          include: 'FusionLauncher.exe.ini'
-          regex: true
+          regex: '^cmd\\s+=\\s+.*'
+          replacement: 'cmd = ""Fusion360.exe""'
+          flags: "g"                  # Optional, defaults to "g"
+          include: 'FusionLauncher.exe.ini'    # Optional, defaults to ".*"
           
       - shell: cmd
         run: type FusionLauncher.exe.ini
